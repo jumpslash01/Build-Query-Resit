@@ -99,16 +99,19 @@ VALUES
     (2, 'West', 'Jan', 29, 2016, 225, '12-17-2015'),
     (3, 'West', 'Jan', 29, 2016, 200, '12-18-2015');
 
+SELECT C.GivenName, C.Surname, B.TourName, T.Descriotion, E.EventYear, E.EventMonth, E.EventDay, B.Payment FROM (((Client C
+INNER JOIN Booking B ON B.ClientId = C.ClientId)
+INNER JOIN Tour T ON T.TourName = B.TourName)
+INNER JOIN [EVENT] E ON E.TourName = B.TourName AND E.EventMonth = B.EventMonth AND E.EventDay = B.EventDay);
 
+SELECT EventMonth, TourName, Count(*) FROM Booking GROUP BY EventMonth, TourName;
 
-
-
-
+SELECT * FROM Booking WHERE Payment > (Select AVG(Payment) FROM Booking);
 
 --SELECT *
 --FROM Tour;
-SELECT *
-FROM Client;
+--SELECT *
+--FROM Client;
 --SELECT *
 --FROM [Event];
 --SELECT *
