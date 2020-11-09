@@ -104,7 +104,7 @@ INNER JOIN Booking B ON B.ClientId = C.ClientId)
 INNER JOIN Tour T ON T.TourName = B.TourName)
 INNER JOIN [EVENT] E ON E.TourName = B.TourName AND E.EventMonth = B.EventMonth AND E.EventDay = B.EventDay);
 
-SELECT EventMonth, TourName, Count(*) FROM Booking GROUP BY EventMonth, TourName;
+SELECT EventMonth, TourName, Count(*) AS NumBookings FROM Booking GROUP BY EventMonth, TourName;
 
 SELECT * FROM Booking WHERE Payment > (Select AVG(Payment) FROM Booking);
 
