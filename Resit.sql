@@ -1,5 +1,5 @@
 -- ZAKARY SMITH 
---                                          RELATIONAL SCHEMA
+--                                          1. RELATIONAL SCHEMA
 -- Tour (TourName, Descriotion)
 --      PK(TourName)
 -- Client (ClientID, Surname, GivenName, Gender)
@@ -15,7 +15,7 @@
 USE resit;
 
 GO
-
+--                                          TASK 2
 DROP TABLE IF EXISTS Booking;
 DROP TABLE IF EXISTS [Event];
 DROP TABLE IF EXISTS Client;
@@ -61,6 +61,9 @@ CREATE TABLE Booking
     FOREIGN KEY (TourName, EventYear, EventMonth, EventDay) REFERENCES [Event]
 );
 
+--                                          TASK 3
+
+
 INSERT INTO Tour
     (TourName, Descriotion)
 VALUES
@@ -99,14 +102,22 @@ VALUES
     (2, 'West', 'Jan', 29, 2016, 225, '12-17-2015'),
     (3, 'West', 'Jan', 29, 2016, 200, '12-18-2015');
 
+
+--                                          TASK 4
+
+--4.1
 SELECT C.GivenName, C.Surname, B.TourName, T.Descriotion, E.EventYear, E.EventMonth, E.EventDay, B.Payment FROM (((Client C
 INNER JOIN Booking B ON B.ClientId = C.ClientId)
 INNER JOIN Tour T ON T.TourName = B.TourName)
 INNER JOIN [EVENT] E ON E.TourName = B.TourName AND E.EventMonth = B.EventMonth AND E.EventDay = B.EventDay);
 
+--4.2
 SELECT EventMonth, TourName, Count(*) AS NumBookings FROM Booking GROUP BY EventMonth, TourName;
 
+--4.3
 SELECT * FROM Booking WHERE Payment > (Select AVG(Payment) FROM Booking);
+
+--                                          TASK 5
 
 GO
 
@@ -117,11 +128,14 @@ INNER JOIN Tour T ON T.TourName = B.TourName)
 INNER JOIN [EVENT] E ON E.TourName = B.TourName AND E.EventMonth = B.EventMonth AND E.EventDay = B.EventDay);
 
 GO
---SELECT *
---FROM Tour;
---SELECT *
---FROM Client;
---SELECT *
---FROM [Event];
---SELECT *
---FROM Booking;
+
+--                                          TASK 6
+
+
+Select Count(*) FROM VIEWTASK
+--Q1 This View count verifies that the joined data contains no addionatal or removed cells as the number of rows counted is the same as the original bookings tabel
+
+SELECT AVG(Payment) FROM Booking;
+SELECT COUNT(*) FROM BOOKING WHERE PAYMENT <= 200;
+--Q2 This Query shows us the average payment to be 200, where the orignial query is only reporting values over 200.
+--Furthermore, the original query return 3 of the 10 values. When searching for values equal or under the average it returns 7 of the 10 values. This shows that no values are being left out. 
