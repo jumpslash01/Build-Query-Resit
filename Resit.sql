@@ -108,6 +108,15 @@ SELECT EventMonth, TourName, Count(*) FROM Booking GROUP BY EventMonth, TourName
 
 SELECT * FROM Booking WHERE Payment > (Select AVG(Payment) FROM Booking);
 
+GO
+
+CREATE VIEW VIEWTASK AS 
+SELECT C.GivenName, C.Surname, B.TourName, T.Descriotion, E.EventYear, E.EventMonth, E.EventDay, B.Payment FROM (((Client C
+INNER JOIN Booking B ON B.ClientId = C.ClientId)
+INNER JOIN Tour T ON T.TourName = B.TourName)
+INNER JOIN [EVENT] E ON E.TourName = B.TourName AND E.EventMonth = B.EventMonth AND E.EventDay = B.EventDay);
+
+GO
 --SELECT *
 --FROM Tour;
 --SELECT *
